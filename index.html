@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>케어콜 - 부모님 건강 안심 서비스</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      color: #2D2D2D;
+      line-height: 1.6;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 24px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #4A90D9;
+    }
+    .nav-cta {
+      background: #4A90D9;
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: #F8F6F3;
+      padding: 80px 24px 100px;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .hero-text { flex: 1.2; }
+    .hero-image { flex: 1; text-align: center; }
+    .hero-image img {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #E8F2FF;
+      color: #4A90D9;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 20px;
+      word-break: keep-all;
+    }
+    .hero h1 span { color: #4A90D9; }
+    .hero p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .cta-button {
+      display: inline-block;
+      background: #FF6B35;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 18px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .cta-button:hover { transform: translateY(-2px); }
+    .cta-sub {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    /* ===== PAIN POINTS ===== */
+    .pain {
+      padding: 100px 24px;
+      background: #fff;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #888;
+      margin-bottom: 60px;
+    }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .pain-card {
+      background: #F8F6F3;
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+    }
+    .pain-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .pain-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .pain-card p {
+      font-size: 15px;
+      color: #777;
+      line-height: 1.6;
+    }
+
+    /* ===== FEATURES ===== */
+    .features {
+      padding: 100px 24px;
+      background: #F8F6F3;
+    }
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      margin-top: 60px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 48px;
+    }
+    .feature-icon-wrap {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      background: #E8F2FF;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+    .feature-content h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feature-content p {
+      font-size: 16px;
+      color: #777;
+      line-height: 1.7;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing {
+      padding: 100px 24px;
+      background: #fff;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .price-card {
+      border: 2px solid #E5E5E5;
+      border-radius: 20px;
+      padding: 44px 36px;
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: #4A90D9;
+      background: #FAFCFF;
+    }
+    .price-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4A90D9;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 20px;
+      border-radius: 20px;
+    }
+    .price-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .price-card .price {
+      font-size: 40px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .price-card .price span {
+      font-size: 16px;
+      font-weight: 500;
+      color: #999;
+    }
+    .price-card .price-desc {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 28px;
+    }
+    .price-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+    .price-features li {
+      padding: 8px 0;
+      font-size: 15px;
+      color: #555;
+    }
+    .price-features li::before {
+      content: "✓ ";
+      color: #4A90D9;
+      font-weight: 700;
+    }
+    .price-features li.disabled {
+      color: #ccc;
+    }
+    .price-features li.disabled::before {
+      content: "— ";
+      color: #ddd;
+    }
+    .price-cta {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+    }
+    .price-cta.outline {
+      background: #fff;
+      border: 2px solid #4A90D9;
+      color: #4A90D9;
+    }
+    .price-cta.filled {
+      background: #FF6B35;
+      color: #fff;
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how {
+      padding: 100px 24px;
+      background: #F8F6F3;
+    }
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 60px;
+    }
+    .how-step {
+      text-align: center;
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: #4A90D9;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .how-step h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .how-step p {
+      font-size: 15px;
+      color: #777;
+      line-height: 1.6;
+    }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      padding: 100px 24px;
+      background: linear-gradient(135deg, #4A90D9 0%, #3A7BC8 100%);
+      text-align: center;
+      color: #fff;
+    }
+    .final-cta h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .final-cta p {
+      font-size: 18px;
+      opacity: 0.85;
+      margin-bottom: 40px;
+    }
+    .final-cta .cta-button {
+      background: #fff;
+      color: #4A90D9;
+    }
+    .final-cta .cta-sub {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 40px 24px;
+      background: #2D2D2D;
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">케어콜</div>
+    <button class="nav-cta">사전예약</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">사전예약 시 첫 달 50% 할인</div>
+        <h1>엄마가 오늘 약을<br>드셨는지, <span>매일<br>걱정되시나요?</span></h1>
+        <p>AI가 매일 부모님께 안부 전화를 드리고,<br>건강 상태를 요약해서 카톡으로 보내드립니다.</p>
+        <a href="#pricing" class="cta-button">사전예약하고 첫 달 50% 받기</a>
+        <span class="cta-sub">* 출시 예정 2026년 상반기 | 사전예약자 한정 혜택</span>
+      </div>
+      <div class="hero-image">
+        <div style="width:100%;max-width:480px;height:400px;background:linear-gradient(135deg,#E8F2FF,#D4E6FF);border-radius:20px;display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;">
+            <div style="font-size:80px;margin-bottom:16px;">👨‍👩‍👧</div>
+            <div style="font-size:18px;color:#4A90D9;font-weight:600;">부모님과 나를 연결합니다</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section class="pain">
+    <div class="section-inner">
+      <h2 class="section-title">이런 경험, 있으시죠?</h2>
+      <p class="section-subtitle">바쁜 일상 속, 부모님 걱정은 늘 마음 한켠에 있습니다</p>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pain-icon">📞</div>
+          <h3>오늘도 전화 못 드렸다</h3>
+          <p>바쁜 출근길, 야근 후 지친 밤.<br>매일 전화하겠다고 다짐하지만<br>이번 주도 한 번밖에 못 드렸다.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">💊</div>
+          <h3>약을 또 빼먹으셨다</h3>
+          <p>혈압약, 당뇨약, 영양제까지.<br>매일 챙겨드려야 하는데<br>내가 매일 옆에 있을 수는 없다.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🏥</div>
+          <h3>병원에서 뭐라고 했는지 모른다</h3>
+          <p>부모님께 여쭤보면<br>"괜찮대" 한 마디뿐.<br>정확한 상태를 알 수가 없다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-inner">
+      <h2 class="section-title">그래서 만들었습니다</h2>
+      <p class="section-subtitle">기술로 효도의 빈틈을 채워드립니다</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon-wrap">📱</div>
+          <div class="feature-content">
+            <h3>AI 안부 전화</h3>
+            <p>매일 정해진 시간에 부모님께 자연스럽게 전화를 드립니다.<br>대화 내용을 분석하여 건강 상태와 기분을 요약 리포트로 보내드립니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">📋</div>
+          <div class="feature-content">
+            <h3>건강 리포트</h3>
+            <p>통화 내용과 건강 데이터를 바탕으로 매일 카카오톡으로 리포트를 발송합니다.<br>혈압, 혈당 등 주요 수치 변화를 한눈에 확인할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">💊</div>
+          <div class="feature-content">
+            <h3>스마트 복약 알림</h3>
+            <p>약봉투를 촬영하면 AI가 복약 스케줄을 자동으로 생성합니다.<br>부모님이 약을 드시지 않으면 자녀에게 즉시 알림을 보내드립니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="section-inner">
+      <h2 class="section-title">시작은 간단합니다</h2>
+      <p class="section-subtitle">3분이면 부모님과 연결됩니다</p>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="step-number">1</div>
+          <h3>자녀가 가입</h3>
+          <p>앱에서 간단하게 가입하고<br>부모님 정보를 입력합니다.</p>
+        </div>
+        <div class="how-step">
+          <div class="step-number">2</div>
+          <h3>부모님께 전화 한 통</h3>
+          <p>부모님께 안내 전화가 가고<br>동의 한마디면 설정 완료.</p>
+        </div>
+        <div class="how-step">
+          <div class="step-number">3</div>
+          <h3>매일 안심 리포트</h3>
+          <p>다음 날부터 매일 안부 전화와<br>건강 리포트를 받아보세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="section-inner">
+      <h2 class="section-title">합리적인 요금제</h2>
+      <p class="section-subtitle">하루 630원부터, 매일 부모님 안부를 확인하세요</p>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Lite</h3>
+          <div class="price">19,000원 <span>/월</span></div>
+          <div class="price-desc">하루 약 630원</div>
+          <ul class="price-features">
+            <li>매일 AI 안부 전화</li>
+            <li>건강 리포트 (카톡 발송)</li>
+            <li>스마트 복약 알림</li>
+            <li>행정 알림 (검진, 보조금 등)</li>
+            <li class="disabled">병원 동행 (월 1회)</li>
+            <li class="disabled">1:1 전담 행정 대행</li>
+          </ul>
+          <a href="https://tally.so/r/gD4azO" class="price-cta outline">사전예약 신청하기</a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-badge">추천</div>
+          <h3>Premium</h3>
+          <div class="price">99,000원 <span>/월</span></div>
+          <div class="price-desc">풀케어 패키지</div>
+          <ul class="price-features">
+            <li>Lite 전체 기능 포함</li>
+            <li>전문 매니저 병원 동행 (월 1회)</li>
+            <li>진료 내용 AI 요약 리포트</li>
+            <li>1:1 전담 행정 대행</li>
+            <li>장기요양등급 신청 지원</li>
+            <li>정부 보조금 매칭 서비스</li>
+          </ul>
+          <a href="https://tally.so/r/gD4azO" class="price-cta filled">사전예약 신청하기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>부모님 걱정,<br>이제 시스템에 맡기세요.</h2>
+    <p>사전예약 해주시면 출시 즉시 안내드리며,<br>첫 달 50% 할인 혜택을 드립니다.</p>
+    <a href="https://tally.so/r/gD4azO" class="cta-button">사전예약하고 첫 달 50% 받기</a>
+    <span class="cta-sub">* 사전예약은 결제가 아닙니다. 언제든 취소 가능합니다.</span>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 케어콜. 부모님과 나를 연결합니다.</p>
+  </footer>
+
+</body>
+</html>
